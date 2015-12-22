@@ -10,7 +10,7 @@ defmodule Rumbl.VideoController do
 end
 
   def index(conn, _params, user) do
-    videos = Repo.all(user_videos(user)) |> Repo.preload :user
+    videos = Repo.all(user_videos(user)) |> Repo.preload(:user)
     render(conn, "index.html", videos: videos)
   end
 
@@ -38,7 +38,7 @@ end
   end
 
   def show(conn, %{"id" => id}, user) do
-    video = Repo.get!(user_videos(user), id) |> Repo.preload :user
+    video = Repo.get!(user_videos(user), id) |> Repo.preload(:user)
     render(conn, "show.html", video: video)
   end
 
@@ -82,6 +82,6 @@ end
     categories = Repo.all from(c in Rumbl.Category,
                                order_by: c.name,
                                select: {c.name, c.id})
-    assign(conn, :categories, categories)                                
+    assign(conn, :categories, categories)
   end
 end

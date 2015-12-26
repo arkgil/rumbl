@@ -12,7 +12,7 @@ defmodule Rumbl.UserSocket do
     case Phoenix.Token.verify(socket, "user socket", token) do
       {:ok, user_id} ->
         user = Rumbl.Repo.get!(Rumbl.User, user_id)
-        {:ok, assign(socket, :user_id, user.id)}
+        {:ok, assign(socket, :user, user)}
       {:error, _reason} ->
         :error
     end
@@ -20,5 +20,5 @@ defmodule Rumbl.UserSocket do
 
   def connect(_params, _socket), do: :error
 
-  def id(socket), do: "users_socket:#{socket.assigns.user_id}"
+  def id(socket), do: "users_socket:#{socket.assigns.user.id}"
 end
